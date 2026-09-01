@@ -1,0 +1,21 @@
+Go uses (go centric way: Feature Based) project structure
+
+```
+my-go-app/
+├── cmd/
+│   └── server/
+│       └── main.go             # Main entry point to boot the app
+├── internal/                   # Code hidden from external applications
+│   ├── auth/                   # Authentication Domain
+│   │   ├── handler.go          # (Controller) Handles HTTP requests
+│   │   ├── model.go            # (Model) Database schemas for Auth
+│   │   └── repository.go       # Handles direct DB queries
+│   ├── users/                  # User Management Domain
+│   │   ├── handler.go          # (Controller)
+│   │   ├── model.go            # (Model)
+│   │   └── service.go          # Core business logic
+│   └── database/
+│       └── db.go               # Establishes connection pooling
+├── pkg/                        # Open source / reusable code (optional)
+└── go.mod 
+```
