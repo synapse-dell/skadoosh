@@ -20,13 +20,48 @@ async function request<T>(
 }
 
 export const usersApi = {
-    async List(): Promise<User[]> {
+    async list(): Promise<User[]> {
         const response = await request<{
             message: string,
             Users: User[]
-        }>("/users");
+        }>("/");
 
         return response.Users;
+    },
+    async create(input: Omit<User, "id">): Promise<User> {
+        const response = await request<{ user: User }>(
+            "/create",
+            {
+                method: "POST",
+                body: JSON.stringify(input),
+            }
+        );
+
+        return response.user;
+    },
+    async update(
+        id: number,
+        input: Omit<User, "id">
+    ): Promise<User> {
+        const response = await request<{ user: User }>(
+            `/update/${id}`,
+            {
+                method: "PUT",
+                body: JSON.stringify(input)
+            }
+        );
+        return response.user;
+    },
+    async delete(
+        id: number,
+    ): Promise<User> {
+        const response = await request<{ user: User }>(
+            `/delete/${id}`,
+            {
+                method: "DELETE",
+            }
+        )
+        return response.user;
     }
 }
 
